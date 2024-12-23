@@ -1,0 +1,43 @@
+type Project {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: String!
+  tasks: [Task!]
+  team: [Member!]
+}
+
+type Task {
+  id: ID!
+  title: String!
+  description: String
+  status: String!
+  assignee: Member
+  priority: String
+  dueDate: String!
+}
+
+type Member {
+  id: ID!
+  name: String!
+  email: String!
+  role: String!
+}
+
+type Query {
+  getProjects: [Project!]
+  getTasksByProject(projectId: ID!): [Task!]
+}
+
+type Mutation {
+  addProject(name: String!, description: String): Project
+  addTask(
+    projectId: ID!
+    title: String!
+    description: String
+    status: String!
+    priority: String
+    dueDate: String
+  ): Task
+  updateTaskStatus(taskId: ID!, status: String!): Task
+}
