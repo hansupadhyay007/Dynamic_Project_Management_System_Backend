@@ -1,10 +1,10 @@
 type Project {
   id: ID!
   name: String!
-  description: String
+  description: String!
   createdAt: String!
-  tasks: [Task!]
-  team: [Member!]
+  tasks: [Task]
+  team: [Member]
 }
 
 type Task {
@@ -26,11 +26,15 @@ type Member {
 
 type Query {
   getProjects: [Project!]
+  getProjectById(projectId: ID!): Project!
   getTasksByProject(projectId: ID!): [Task!]
 }
 
 type Mutation {
-  addProject(name: String!, description: String): Project
+  addProject(
+    name: String!
+    description: String!
+    createdAt: String!): Project
   addTask(
     projectId: ID!
     title: String!
@@ -40,4 +44,5 @@ type Mutation {
     dueDate: String
   ): Task
   updateTaskStatus(taskId: ID!, status: String!): Task
+  deleteProject(projectId: ID!): Project
 }
